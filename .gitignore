@@ -5,3 +5,6 @@ venv
 # Ignore test-related files
 .coverage
 htmlcov
+
+# Ignore Django-related files
+migrations
