@@ -1,4 +1,4 @@
 # URL Shortener 
 
-- DJango Backend 
+- Django Backend 
 - React Frontend 
