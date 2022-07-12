@@ -1,4 +1,5 @@
-# Ignore Python Environment
+# Ignore Python-related files
+__pycache__
 venv
 
 # Ignore test-related files
