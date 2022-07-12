@@ -1,0 +1,6 @@
+# Ignore Python Environment
+venv
+
+# Ignore test-related files
+.coverage
+htmlcov
