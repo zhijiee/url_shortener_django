@@ -24,13 +24,14 @@ class UrlForm extends React.Component {
         event.preventDefault();
         axios.post('/api/shorten/', {
             url: this.state.url
-            // }).catch(function (error) {
         }).then((response) => {
             document.getElementById(APP_ID).innerHTML = response.data;
             // this.state.response = response.data;
-        }).catch((error) => {
+        // }).catch((error) => {
+        }).catch(function (error) {
             console.log(error);
-            document.getElementById(APP_ID).innerHTML = error.response.data;
+            // document.getElementById(APP_ID).innerHTML = error.response.data;
+            alert(error.response.data)
             // this.state.response = error.response.data;
         });
     }

@@ -1,6 +1,8 @@
+from tabnanny import check
 from django.shortcuts import redirect
 from django.http import HttpResponse
 from django.urls import reverse
+from django.core.validators import URLValidator
 
 from rest_framework import generics
 from rest_framework.decorators import api_view
@@ -10,7 +12,7 @@ import json
 
 from .models import UrlMapping
 from .serializers import UrlSerializer
-from .service import get_random_hash, load_url
+from .service import get_random_hash, load_url, check_url, convert
 
 
 # Create your views here.
@@ -30,13 +32,13 @@ def shorten_url(request) -> HttpResponse:
     """
     data = json.loads(request.body)
     data['hash'] = get_random_hash()
+    data['url'] = convert(data['url'])
 
     shortened_url = request.build_absolute_uri(
         reverse('redirect', args=[data['hash']]))
-    print(shortened_url)
 
     serializer = UrlSerializer(data=data)
-    if serializer.is_valid():
+    if check_url(data['url']) and serializer.is_valid():
         serializer.save()
         response = HttpResponse(
             f'Shortened URL: <a href="{shortened_url}">{shortened_url}</a>')
