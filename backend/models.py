@@ -6,6 +6,9 @@ from django.db import models
 Create Database Model for URL Mapping here
 '''
 class UrlMapping(models.Model):
-    original_url = models.CharField(max_length=256)
+    url = models.CharField(max_length=256)
     hash = models.CharField(max_length=10)
-    date_created = models.DateTimeField('creation date')
+    date_created = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ('date_created', )
