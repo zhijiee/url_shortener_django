@@ -5,16 +5,14 @@ from .models import UrlMapping
 from .serializers import UrlSerializer
 from rest_framework import generics
 
-import pyshorteners
+from .models import UrlMapping
+from .serializers import UrlSerializer
 
 
 # Create your views here.
-def shorten(request, url):
-    shorterner = pyshorteners.Shortener()
-    shortened_url = shorterner.chilpit.short(url)
-    return HttpResponse(f'Shortened URL: <a href="{shortened_url}">{shortened_url}</a>')
-
-
 class UrlListCreate(generics.ListCreateAPIView):
+    """ View created using Django Generics
+    For testing purposes
+    """
     queryset = UrlMapping.objects.all()
     serializer_class = UrlSerializer
