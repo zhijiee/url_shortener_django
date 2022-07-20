@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { render } from "react-dom";
+import ReactDOM from 'react-dom/client'
 
 const axios = require('axios').default;
 const APP_ID = 'app'
@@ -50,7 +50,8 @@ class UrlForm extends React.Component {
     }
 }
 
-export default UrlForm;
+const root = ReactDOM.createRoot(
+    document.getElementById('app')
+);
 
-const container = document.getElementById(APP_ID);
-render(<UrlForm />, container);
+root.render(<UrlForm />);
