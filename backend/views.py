@@ -1,6 +1,6 @@
 from tabnanny import check
 from django.shortcuts import redirect
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.urls import reverse
 from django.core.validators import URLValidator
 
@@ -25,27 +25,28 @@ class UrlListCreate(generics.ListCreateAPIView):
 
 
 @api_view(['POST'])
-def shorten_url(request) -> HttpResponse:
+def shorten_url(request) -> JsonResponse:
     """ Generate a random hash and store it with the URL
 
     Returns a HTTP Response
     """
+
+    # Prepare for serialization
     data = json.loads(request.body)
     data['hash'] = get_random_hash()
     data['url'] = convert(data['url'])
 
-    shortened_url = request.build_absolute_uri(
-        reverse('redirect', args=[data['hash']]))
-
     serializer = UrlSerializer(data=data)
     if check_url(data['url']) and serializer.is_valid():
         serializer.save()
-        response = HttpResponse(
-            f'Shortened URL: <a href="{shortened_url}">{shortened_url}</a>')
-        response.status_code = status.HTTP_201_CREATED
+        # Generate the URL to be returned
+        shortened_url = request.build_absolute_uri(
+            reverse('redirect', args=[data['hash']]))
+        response = JsonResponse({'message': shortened_url},
+                                status=status.HTTP_201_CREATED)
     else:
-        response = HttpResponse(f'Failed to save Shorted URL!')
-        response.status_code = status.HTTP_400_BAD_REQUEST
+        response = JsonResponse({'message': serializer.errors},
+                                status=status.HTTP_400_BAD_REQUEST)
     return response
 
 
