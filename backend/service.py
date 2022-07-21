@@ -24,7 +24,6 @@ def check_url(url) -> bool:
     try:
         val(url)
     except ValidationErr as e:
-        print(e)
         return False
     return True
 
