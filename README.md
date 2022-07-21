@@ -1,10 +1,10 @@
 # URL Shortener 
 
-This is a short project created to understand how to use Django and React. It uses Django RESTFRAMEWORK as backend and React as frontend. 
+This is a short MVP project created to understand how to use Django REST framework, React and Postgresql. 
 
 - Django Backend 
 - React Frontend 
-
+- Postgresql Database
 
 ## Setup
 
@@ -20,7 +20,6 @@ source venv/bin/activate
 
 # Install the required depenencies 
 pip install -r requirements.txt
-
 
 # Django models and databases
 ./manage.py makemigrations
@@ -40,3 +39,11 @@ cd ../
 ```
 docker compose up --build
 ```
+
+
+## Using the application
+
+Visit http://localhost:8000 for a simple form to generate a shorterened URL. THe URL allow redirect the client to the website originally entered. 
+
+The app also contain a testview. This testview is created using Django generic views to see the database entries stored. 
+This can be found in http://localhost:8000/testview
