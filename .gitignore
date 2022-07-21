@@ -8,3 +8,6 @@ htmlcov
 
 # Ignore Django-related files
 migrations
+
+# Ignore vscode
+.vscode
