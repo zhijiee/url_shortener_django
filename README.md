@@ -35,9 +35,17 @@ cd ../
 ./manage.py runserver 8000
 ```
 
-### Running it via Docker
+### Build docker container and run as application as docker
 ```
+# Build
+docker compose build
+
+# Run
+docker compose up
+
+# Build and run
 docker compose up --build
+
 ```
 
 
