@@ -10,18 +10,12 @@ RUN pip install -r requirements.txt
 COPY . /code/
 
 RUN apt update
-RUN apt install python3-psycopg2 npm -y
-
-# Setup for Django Models
-RUN ./manage.py makemigrations 
-RUN ./manage.py migrate
+RUN apt install npm -y
 
 # Setup for react frontend
-RUN cd frontend
+WORKDIR /code/frontend
 RUN npm install
-RUN npm run dev
-RUN cd ..
+RUN npm run build
 
 EXPOSE 8000
-
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+WORKDIR /code/
